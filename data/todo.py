@@ -1,6 +1,7 @@
 from model.todo import Todo
 
 
+# Sample data, to be replaced by a real database
 _todos: list[Todo] = [
     Todo(
         task='Learn Python',
@@ -23,14 +24,23 @@ _todos: list[Todo] = [
 ]
 
 
-def get_todos() -> list[Todo]:
+# CRUD operations
+
+async def get_todos() -> list[Todo]:
+    ''' READ all todos '''
     return _todos
 
 
-def add_todo(todo: Todo) -> None:
+async def add_todo(todo: Todo) -> None:
+    ''' CREATE a new todo '''
     _todos.append(todo)
 
 
-def delete_todo(id: str) -> None:
-    # todo: implement
+async def update_todo(todoId: str) -> None:
+    ''' UPDATE a todo '''
+    pass
+    
+    
+async def delete_todo(todoId: str) -> None:
+    ''' DELETE a todo '''
     pass
