@@ -21,7 +21,7 @@ async def add_todo(todo: Todo) -> dict[str, str]:
 
 
 @router.put('/{todoId}')
-async def update_todo(todoId: str, todo: Todo) -> dict[str, str]:
+async def update_todo(todoId: str) -> dict[str, str]:
     await service.update_todo(todoId)
 
     return {'message': 'Todo updated successfully'}
