@@ -1,8 +1,61 @@
 {% extends "base.html" %}
 {% block content %}
 
-<main>
-    <h1 class="text-3xl font-bold">Todo App</h1>
-</main>
+<section class="bg-white rounded-lg shadow-lg p-6 mb-8">    
+    <form
+    hx-post="/api/v1/todos"
+    hx-trigger="keyup changed delay:500ms"
+    hx-swap="outerHTML"
+    hx-target="#todos"
+    hx-indicator="#indicator"
+    class="flex gap-2 mb-6 mt-4"
+    >
+    <input
+        type="text"
+        name="task"
+        placeholder="Add a new task..."
+        required
+        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+    <button
+        type="submit"
+        class="px-6 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition">
+        Add
+    </button>
+    </form>
+</section>
+
+<!--
+    <div id="indicator" class="flex items-center justify-center w-full h-full">
+        <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-200"></div>
+        <p class="text-center text-gray-500">Loading...</p>
+    </div> -->
+
+<article id="todos" class="bg-white rounded-lg shadow-lg p-6">
+    {% for todo in todos %}
+    <div class="flex items-center justify-between py-4 border-b border-gray-200">
+        <div class="flex items-center">
+            <input
+                type="checkbox"
+                name="completed"
+                {% if todo.completed %}checked{% endif %}
+                class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+            >
+            <span class="ml-4 text-sm font-medium text-gray-900">{{ todo.task }}</span>
+        </div>
+        <button
+            type="button"
+            hx-delete="/api/v1/todos/{{ todo.id }}"
+            hx-swap="outerHTML"
+            hx-target="#todos"
+            hx-indicator="#indicator"
+            class="ml-4 inline-flex items-center rounded-md bg-red-500 px-2 py-1 text-sm font-medium text-white hover:bg-red-600"
+        >
+            Delete
+        </button>
+    </div>
+    {% endfor %}
+</article>
+
 
 {% endblock content %}
