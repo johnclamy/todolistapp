@@ -16,7 +16,7 @@ jinja = Jinja(Jinja2Templates("templates"))
 @app.get('/')
 @jinja.page('index.html')
 async def index(request: Request):
-    return {'todos': await todo.get_todos(), 'request': request}
+    return {'todos': list(await todo.get_todos()), 'request': request}
 
 
 if __name__ == '__main__':
